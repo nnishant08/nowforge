@@ -46,5 +46,14 @@
   "options_ui": {
     "page": "src/options/index.html",
     "open_in_tab": true
+  },
+  "commands": {
+    "toggle-command-bar": {
+      "suggested_key": {
+        "default": "Ctrl+K",
+        "mac": "Command+K"
+      },
+      "description": "Open the NowForge command bar"
+    }
   }
 }
