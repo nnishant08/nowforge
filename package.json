@@ -1,0 +1,21 @@
+{
+  "name": "nowforge",
+  "private": true,
+  "version": "0.1.0",
+  "scripts": {
+    "dev": "pnpm --filter chrome-extension dev",
+    "build": "pnpm --filter core build && pnpm --filter chrome-extension build",
+    "lint": "eslint packages/*/src --ext .ts,.tsx",
+    "typecheck": "pnpm -r typecheck",
+    "package": "pnpm build && node scripts/package.mjs"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": ["esbuild"]
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^7.0.0",
+    "@typescript-eslint/parser": "^7.0.0",
+    "eslint": "^8.57.0",
+    "typescript": "^5.4.0"
+  }
+}

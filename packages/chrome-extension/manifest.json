@@ -1,0 +1,50 @@
+{
+  "manifest_version": 3,
+  "name": "NowForge — Developer Tools for ServiceNow",
+  "short_name": "NowForge",
+  "version": "0.1.0",
+  "description": "The complete developer toolkit for ServiceNow. Command bar, debugging, UI Builder companion, Flow Designer inspector, and more.",
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "permissions": [
+    "activeTab",
+    "storage",
+    "sidePanel",
+    "scripting",
+    "contextMenus",
+    "tabs"
+  ],
+  "host_permissions": [
+    "https://*.service-now.com/*"
+  ],
+  "background": {
+    "service_worker": "src/background/index.js",
+    "type": "module"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://*.service-now.com/*"],
+      "js": ["src/content/index.js"],
+      "run_at": "document_idle"
+    }
+  ],
+  "action": {
+    "default_popup": "src/popup/index.html",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    },
+    "default_title": "NowForge"
+  },
+  "side_panel": {
+    "default_path": "src/sidepanel/index.html"
+  },
+  "options_ui": {
+    "page": "src/options/index.html",
+    "open_in_tab": true
+  }
+}

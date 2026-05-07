@@ -1,0 +1,112 @@
+.sidepanel {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.sidepanel__header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-4);
+  border-bottom: 1px solid var(--color-border-subtle);
+  flex-shrink: 0;
+}
+
+.sidepanel__logo-mark {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  background: var(--color-accent);
+  color: #fff;
+  font-size: 10px;
+  font-weight: 700;
+  border-radius: var(--radius-sm);
+  letter-spacing: 0.03em;
+}
+
+.sidepanel__title {
+  font-size: var(--font-size-md);
+  font-weight: 600;
+  color: var(--color-text-primary);
+}
+
+/* Tab bar */
+.tab-bar {
+  display: flex;
+  border-bottom: 1px solid var(--color-border-subtle);
+  flex-shrink: 0;
+  padding: 0 var(--space-2);
+  background: var(--color-bg);
+}
+
+.tab-bar__tab {
+  flex: 1;
+  padding: var(--space-2) var(--space-3);
+  border: none;
+  background: transparent;
+  color: var(--color-text-tertiary);
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+  cursor: pointer;
+  position: relative;
+  transition: color 0.12s;
+}
+
+.tab-bar__tab:hover {
+  color: var(--color-text-primary);
+}
+
+.tab-bar__tab--active {
+  color: var(--color-accent);
+}
+
+.tab-bar__tab--active::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--color-accent);
+  border-radius: 1px 1px 0 0;
+}
+
+/* Body */
+.sidepanel__body {
+  flex: 1;
+  overflow-y: auto;
+  padding: var(--space-4);
+}
+
+/* Coming soon placeholder */
+.coming-soon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 48px var(--space-4);
+  text-align: center;
+}
+
+.coming-soon__icon {
+  font-size: 36px;
+  margin-bottom: var(--space-3);
+  opacity: 0.5;
+}
+
+.coming-soon__title {
+  font-size: var(--font-size-lg);
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  margin-bottom: var(--space-2);
+}
+
+.coming-soon__subtitle {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-tertiary);
+  line-height: 1.5;
+}

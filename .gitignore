@@ -1,0 +1,52 @@
+# Dependencies
+node_modules/
+.pnpm-store/
+
+# Build artefacts
+dist/
+build/
+*.tsbuildinfo
+
+# Packaged extension archives
+*.zip
+nowforge-extension-*.zip
+
+# Logs & coverage
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+coverage/
+.nyc_output/
+
+# Env / secrets
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# IDE / editor
+.vscode/
+!.vscode/settings.json.example
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Misc
+.cache/
+.turbo/
+.parcel-cache/
+.eslintcache
