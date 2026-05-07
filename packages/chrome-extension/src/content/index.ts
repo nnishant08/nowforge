@@ -18,6 +18,7 @@ import type { PageContext, PageType } from '../shared/messaging.js';
 import type { GetPageContextResponse } from '../shared/messaging.js';
 import { sendToBackground } from '../shared/messaging.js';
 import { initInstanceIdentity } from './features/instanceIdentity.js';
+import { initCommandBar } from './features/commandBar/index.js';
 
 // ── Page type detection ──────────────────────────────────────────────────────
 
@@ -96,6 +97,9 @@ async function init(): Promise<void> {
   // Initialise Feature 1 — returns a function we call on every SPA nav
   const refreshIdentity = await initInstanceIdentity(context);
 
+  // Initialise Feature 2 — Cmd/Ctrl+K command bar
+  const refreshCommandBar = initCommandBar(context);
+
   // SPA navigation: ServiceNow heavily uses pushState
   let lastUrl = window.location.href;
   const observer = new MutationObserver(() => {
@@ -106,6 +110,7 @@ async function init(): Promise<void> {
       window.__NOWFORGE_CONTEXT__ = updated;
       sendToBackground({ type: 'PAGE_CONTEXT_UPDATED', context: updated });
       void refreshIdentity(updated);
+      refreshCommandBar(updated);
     }
   });
   observer.observe(document.documentElement, { childList: true, subtree: true });

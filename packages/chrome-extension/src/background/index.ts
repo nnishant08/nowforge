@@ -180,3 +180,17 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo) => {
 chrome.sidePanel
   .setPanelBehavior({ openPanelOnActionClick: false })
   .catch(() => {});
+
+// Forward the Cmd/Ctrl+K shortcut declared in manifest.commands to the active
+// tab's content script. The content script also has its own keydown listener
+// as a backup, so we have redundancy if the user remaps or disables this.
+chrome.commands.onCommand.addListener((command) => {
+  if (command !== 'toggle-command-bar') return;
+  chrome.tabs.query({ active: true, lastFocusedWindow: true }, (tabs) => {
+    const tabId = tabs[0]?.id;
+    if (typeof tabId !== 'number') return;
+    chrome.tabs.sendMessage(tabId, { type: 'TOGGLE_COMMAND_BAR' }).catch(() => {
+      // Tab is not a SN page (no content script) — ignore
+    });
+  });
+});
