@@ -206,6 +206,7 @@ export default function App() {
               ['faviconBadge', 'Favicon badge', 'Replace the tab icon with a colored circle showing the instance initials.'],
               ['instanceTag', 'Instance tag', 'Floating, expandable badge showing the instance name and environment.'],
               ['tabTitlePrefix', 'Tab title prefix', 'Prepend [DEV], [PROD], etc. to the browser tab title.'],
+              ['fieldTooltips', 'Field tooltips', 'Show the technical field name when hovering over field labels.'],
             ] as const).map(([key, title, desc]) => (
               <label key={key} className="toggle-row">
                 <input type="checkbox" checked={f1.features[key]}

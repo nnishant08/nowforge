@@ -19,6 +19,7 @@ import type { GetPageContextResponse } from '../shared/messaging.js';
 import { sendToBackground } from '../shared/messaging.js';
 import { initInstanceIdentity } from './features/instanceIdentity.js';
 import { initCommandBar } from './features/commandBar/index.js';
+import { initFieldIntelligence } from './features/fieldIntelligence/index.js';
 
 // ── Page type detection ──────────────────────────────────────────────────────
 
@@ -100,6 +101,9 @@ async function init(): Promise<void> {
   // Initialise Feature 2 — Cmd/Ctrl+K command bar
   const refreshCommandBar = initCommandBar(context);
 
+  // Initialise Feature 3 — Field Intelligence (right-click menu + hover tooltips)
+  const refreshFieldIntel = await initFieldIntelligence(context);
+
   // SPA navigation: ServiceNow heavily uses pushState
   let lastUrl = window.location.href;
   const observer = new MutationObserver(() => {
@@ -111,6 +115,7 @@ async function init(): Promise<void> {
       sendToBackground({ type: 'PAGE_CONTEXT_UPDATED', context: updated });
       void refreshIdentity(updated);
       refreshCommandBar(updated);
+      refreshFieldIntel(updated);
     }
   });
   observer.observe(document.documentElement, { childList: true, subtree: true });
