@@ -21,6 +21,8 @@ export interface FeatureToggles {
   faviconBadge: boolean;
   instanceTag: boolean;
   tabTitlePrefix: boolean;
+  /** Show technical field name on hover over field labels. Default off. */
+  fieldTooltips: boolean;
 }
 
 export interface Feature1Settings {
@@ -35,6 +37,7 @@ export const DEFAULT_SETTINGS: Feature1Settings = {
     faviconBadge: true,
     instanceTag: true,
     tabTitlePrefix: true,
+    fieldTooltips: false,
   },
   // Spec palette
   envColors: {

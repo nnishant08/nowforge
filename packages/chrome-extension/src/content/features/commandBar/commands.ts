@@ -1,5 +1,6 @@
 import type { Command } from './types.js';
 import type { PageContext } from '../../../shared/messaging.js';
+import { getSettings, saveSettings } from '../../../shared/settings.js';
 
 // ── Navigation table ────────────────────────────────────────────────────────
 
@@ -162,6 +163,23 @@ function buildActionCommands({ toast }: ActionDeps): Command[] {
       execute: (ctx, opts) => {
         if (!ctx.tableName) return;
         navigate(ctx, `/now/nav/ui/classic/params/target/sys_dictionary_list.do%3Fsysparm_query%3Dname%3D${encodeURIComponent(ctx.tableName)}`, opts.newTab);
+      },
+    },
+    {
+      id: 'action:toggle-field-tooltips',
+      label: 'Toggle field tooltips',
+      description: 'Show technical field names on hover over field labels',
+      category: 'action',
+      icon: '💡',
+      keywords: ['tooltips', 'hover', 'field names', 'developer'],
+      execute: async () => {
+        const settings = await getSettings();
+        const next = !settings.features.fieldTooltips;
+        await saveSettings({
+          ...settings,
+          features: { ...settings.features, fieldTooltips: next },
+        });
+        toast(`Field tooltips: ${next ? 'on' : 'off'}`);
       },
     },
     {
