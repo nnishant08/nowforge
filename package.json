@@ -4,7 +4,8 @@
   "version": "0.1.0",
   "scripts": {
     "dev": "pnpm --filter chrome-extension dev",
-    "build": "pnpm --filter core build && pnpm --filter chrome-extension build",
+    "build": "pnpm --filter core build && pnpm --filter chrome-extension build && pnpm --filter @nowforge/vscode-extension build",
+    "build:vscode": "pnpm --filter core build && pnpm --filter @nowforge/vscode-extension build",
     "lint": "eslint packages/*/src --ext .ts,.tsx",
     "typecheck": "pnpm -r typecheck",
     "package": "pnpm build && node scripts/package.mjs"

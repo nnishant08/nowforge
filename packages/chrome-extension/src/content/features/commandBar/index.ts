@@ -11,6 +11,11 @@ function getInstance(initialContext: PageContext): CommandBar {
   return instance;
 }
 
+/** Returns the live singleton if it exists; null before initCommandBar() runs. */
+export function getCommandBarInstance(): CommandBar | null {
+  return instance;
+}
+
 /**
  * Wire up the global Cmd/Ctrl+K binding. Must be called once during init.
  * Listens in the capture phase so SN's own keyboard handlers can't swallow it.

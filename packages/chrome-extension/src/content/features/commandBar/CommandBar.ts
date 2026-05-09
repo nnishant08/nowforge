@@ -11,6 +11,8 @@ export class CommandBar {
   private isOpen = false;
   private context: PageContext;
   private staticCommands: Command[];
+  /** External providers can inject commands (e.g. recent records). */
+  private extraCommands: Command[] = [];
   private filtered: Command[] = [];
   private selectedIndex = 0;
   private usageCounts: Record<string, number> = {};
@@ -27,6 +29,16 @@ export class CommandBar {
 
   setContext(ctx: PageContext): void {
     this.context = ctx;
+  }
+
+  /**
+   * Replace the set of "extra" commands (currently used by the navigation
+   * feature to inject recent + favorite records). If the bar is open, the
+   * results re-render against the current query.
+   */
+  setExtraCommands(cmds: Command[]): void {
+    this.extraCommands = cmds;
+    if (this.isOpen) this.refilter(this.overlay?.input.value ?? '');
   }
 
   toggle(): void {
@@ -108,7 +120,8 @@ export class CommandBar {
   private refilter(query: string): void {
     if (!this.overlay) return;
     const dynamic = buildDynamicCommands(query);
-    const available = this.staticCommands.filter(
+    const all = [...this.staticCommands, ...this.extraCommands];
+    const available = all.filter(
       (c) => !c.isAvailable || c.isAvailable(this.context)
     );
     const ranked = rankCommands(available, query, this.usageCounts);

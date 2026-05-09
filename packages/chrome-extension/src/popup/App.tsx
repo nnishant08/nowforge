@@ -97,6 +97,11 @@ export default function App() {
     void chrome.runtime.openOptionsPage();
   };
 
+  const openDiffTool = () => {
+    void chrome.tabs.create({ url: chrome.runtime.getURL('src/diff/index.html') });
+    window.close();
+  };
+
   const openSidePanel = () => {
     chrome.tabs.query({ active: true, currentWindow: true }, ([tab]) => {
       if (tab?.id) {
@@ -116,6 +121,9 @@ export default function App() {
         <div className="popup__actions">
           <button className="icon-btn" title="Open Side Panel" onClick={openSidePanel}>
             ◫
+          </button>
+          <button className="icon-btn" title="Compare Instances" onClick={openDiffTool}>
+            ⇄
           </button>
           <button className="icon-btn" title="Settings" onClick={openOptions}>
             ⚙

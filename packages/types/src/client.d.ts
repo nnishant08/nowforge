@@ -1,117 +1,174 @@
 /**
- * ServiceNow client-side global type definitions.
- * Available in Client Scripts and UI Policies.
+ * ServiceNow client-side type declarations. Available in Client Scripts,
+ * UI Policies, and any browser-side code injected by SN.
+ *
+ * Modern JavaScript (ES2015+) is fine on the client side.
  */
 
-/** The current form object. Available in Client Scripts as `g_form`. */
+// ── g_form ───────────────────────────────────────────────────────────────────
+
 declare const g_form: GlideForm;
 
 declare class GlideForm {
-  /** Get the value of a field. */
+  /** Get the value of a field. Returns the underlying value, not the display value. */
   getValue(fieldName: string): string;
-  /** Set the value of a field. */
+  /** Set the value of a field. Triggers onChange handlers. */
   setValue(fieldName: string, value: string, displayValue?: string): void;
-  /** Get the display value of a field. */
+  /** Get the display value (for references, returns the referenced record's label). */
   getDisplayValue(fieldName: string): string;
+  /** Get a value of a reference field. */
+  getReference(fieldName: string, callback: (gr: GlideRecord) => void): void;
 
-  /** Show a field. */
+  // Visibility / behaviour
   setVisible(fieldName: string, visible: boolean): void;
-  /** Make a field read-only or editable. */
   setReadOnly(fieldName: string, readOnly: boolean): void;
-  /** Make a field mandatory or optional. */
   setMandatory(fieldName: string, mandatory: boolean): void;
-
-  /** Get the sys_id of the current record. */
-  getUniqueValue(): string;
-  /** Get the table name of the current form. */
-  getTableName(): string;
-
-  /** Add a decoration (icon) to a field label. */
-  addDecoration(fieldName: string, icon: string, title?: string): void;
-  /** Remove a decoration from a field label. */
-  removeDecoration(fieldName: string, icon: string, title?: string): void;
-
-  /** Flash a field a color briefly to draw attention. */
-  flash(fieldName: string, color: string, count: number): void;
-
-  /** Show an info message in the form header. */
-  addInfoMessage(message: string): void;
-  /** Show an error message in the form header. */
-  addErrorMessage(message: string): void;
-  /** Clear all messages from the form header. */
-  clearMessages(): void;
-
-  /** Get a reference value (sys_id) from a reference field. */
-  getReference(fieldName: string, callback: (ref: GlideRecord) => void): void;
-
-  /** Save the current form (equivalent to clicking Save). */
-  save(): void;
-  /** Submit the current form. */
-  submit(): void;
-
-  /** Enable/disable a section. */
   setSectionDisplay(sectionName: string, display: boolean): void;
 
-  /** Add an option to a choice field. */
-  addOption(fieldName: string, choiceValue: string, choiceLabel: string, choiceIndex?: number): void;
-  /** Remove an option from a choice field. */
-  removeOption(fieldName: string, choiceValue: string): void;
-  /** Clear all options from a choice field. */
+  // Form metadata
+  getUniqueValue(): string;
+  getTableName(): string;
+  getFieldNames(): string[];
+  getLabelOf(fieldName: string): string;
+
+  // Decorations / messages
+  addDecoration(fieldName: string, icon: string, title?: string): void;
+  removeDecoration(fieldName: string, icon: string, title?: string): void;
+  flash(fieldName: string, color: string, count: number): void;
+  addInfoMessage(message: string): void;
+  addErrorMessage(message: string): void;
+  clearMessages(): void;
+
+  // Persistence
+  save(): void;
+  submit(verb?: string): void;
+
+  // Choice fields
+  addOption(fieldName: string, value: string, label: string, index?: number): void;
+  removeOption(fieldName: string, value: string): void;
   clearOptions(fieldName: string): void;
+  clearValue(fieldName: string): void;
+
+  // Change tracking
+  isModified(): boolean;
+  isNewRecord(): boolean;
 }
 
-/** The current list object. Available in List v2/v3 Client Scripts. */
+// ── g_list ───────────────────────────────────────────────────────────────────
+
 declare const g_list: GlideList;
 
 declare class GlideList {
-  /** Get the table name. */
   getTableName(): string;
-  /** Get the current query. */
   getQuery(urlFormat?: boolean): string;
-  /** Refresh the list. */
   refresh(): void;
-  /** Refresh the list with a new query. */
   refreshWithNewQuery(query?: string): void;
-  /** Get list title. */
   getTitle(): string;
+  setOrderBy(field: string): void;
 }
 
-/** The current user object. Available globally in client scripts. */
-declare const g_user: GlideUser;
+// ── g_user ───────────────────────────────────────────────────────────────────
 
-declare class GlideUser {
-  /** The current user's sys_id. */
+declare const g_user: GlideUserClient;
+
+declare class GlideUserClient {
   readonly userID: string;
-  /** The current user's login name. */
   readonly userName: string;
-  /** The current user's display name. */
   readonly fullName: string;
-  /** Whether the current user has a role. */
+  readonly firstName: string;
+  readonly lastName: string;
   hasRole(role: string): boolean;
-  /** Whether the current user has any of the given roles. */
   hasRoleExactly(role: string): boolean;
-  /** Whether the user is in a given group. */
+  hasRoleFromList(roles: string): boolean;
   isMemberOf(group: string): boolean;
 }
 
+// ── g_navigation ─────────────────────────────────────────────────────────────
+
+declare const g_navigation: GlideNavigation;
+
+declare class GlideNavigation {
+  open(url: string): void;
+  openRecord(table: string, sysId: string): void;
+  reload(): void;
+}
+
+// ── GlideAjax ────────────────────────────────────────────────────────────────
+
+/**
+ * Client-to-server bridge. The server-side counterpart is a Script Include
+ * that extends `AbstractAjaxProcessor`.
+ *
+ * @example
+ *   var ga = new GlideAjax('MyScriptInclude');
+ *   ga.addParam('sysparm_name', 'doSomething');
+ *   ga.addParam('sysparm_user', 'abel.tuter');
+ *   ga.getXMLAnswer(function (answer) {
+ *     g_form.addInfoMessage(answer);
+ *   });
+ */
 declare class GlideAjax {
-  constructor(processorName: string);
-  /** Add a parameter to the AJAX request. */
+  constructor(scriptIncludeName: string);
   addParam(name: string, value: string): void;
-  /** Execute the AJAX call. */
+  /**
+   * Async — preferred. Receives the `answer` element value as a string.
+   */
+  getXMLAnswer(callback: (answer: string) => void): void;
+  /** Async — receives the full XML response document. */
   getXML(callback: (response: XMLDocument) => void): void;
-  /** Execute and return answer synchronously (deprecated, avoid). */
+  /** @deprecated Synchronous — blocks the UI thread. Use getXMLAnswer instead. */
   getXMLWait(): void;
-  /** Get the answer element value from the response XML. */
   getAnswer(): string;
 }
 
+// ── GlideRecord (CLIENT — different from server!) ───────────────────────────
+
+/**
+ * **Client-side** GlideRecord. Has limited capabilities and is mostly used
+ * for simple lookups. **Avoid** in client scripts — prefer GlideAjax to a
+ * server-side Script Include for performance and security.
+ */
+declare class GlideRecordClient {
+  constructor(tableName: string);
+  addQuery(field: string, value: unknown): unknown;
+  query(callback?: (gr: GlideRecordClient) => void): void;
+  next(): boolean;
+  getValue(field: string): string;
+  getDisplayValue(field: string): string;
+}
+
+// ── Service Portal globals ──────────────────────────────────────────────────
+
+/** Service Portal client-side utilities. Available in widget client scripts. */
+declare const spUtil: {
+  addInfoMessage(message: string): void;
+  addErrorMessage(message: string): void;
+  refresh(): void;
+  recordWatch(scope: unknown, table: string, filter: string, callback: () => void): unknown;
+  update(scope: unknown): Promise<unknown>;
+  get(name: string, options?: Record<string, unknown>): Promise<unknown>;
+};
+
+declare const $sp: {
+  log: { info(msg: string): void; warn(msg: string): void; error(msg: string): void };
+};
+
+// ── Modals / Dialogs ─────────────────────────────────────────────────────────
+
 declare class GlideDialogWindow {
   constructor(id: string, readOnly?: boolean, width?: number, height?: number);
-  /** Render the dialog. */
   render(): void;
-  /** Set a field value and refresh. */
   setTitle(title: string): void;
-  /** Destroy the dialog. */
+  setPreference(name: string, value: string): void;
+  destroy(): void;
+}
+
+declare class GlideModal {
+  constructor(id: string, readOnly?: boolean, width?: number);
+  render(): void;
+  renderWithContent(content: HTMLElement): void;
+  setTitle(title: string): void;
+  setPreference(name: string, value: string): void;
+  setBody(body: HTMLElement): void;
   destroy(): void;
 }

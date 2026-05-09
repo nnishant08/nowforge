@@ -20,6 +20,14 @@ import { sendToBackground } from '../shared/messaging.js';
 import { initInstanceIdentity } from './features/instanceIdentity.js';
 import { initCommandBar } from './features/commandBar/index.js';
 import { initFieldIntelligence } from './features/fieldIntelligence/index.js';
+import { initScriptRunnerBridge } from './features/scriptRunnerBridge.js';
+import { initUpdateSetBridge } from './features/updateSetBridge.js';
+import { initNavigationTracker } from './features/navigationTracker.js';
+import { initNavCommandBarLink } from './features/navCommandBarLink.js';
+import { initUibBridge } from './features/uibCompanion/uibBridge.js';
+import { initFlowInspectorBridge } from './features/flowInspectorBridge.js';
+import { initScriptActions } from './features/scriptActions/index.js';
+import { initChangeIndicator } from './features/changeIndicator/index.js';
 
 // ── Page type detection ──────────────────────────────────────────────────────
 
@@ -104,6 +112,37 @@ async function init(): Promise<void> {
   // Initialise Feature 3 — Field Intelligence (right-click menu + hover tooltips)
   const refreshFieldIntel = await initFieldIntelligence(context);
 
+  // Initialise Feature 4 — Script Runner bridge (handles SCRIPT_RUNNER_*
+  // messages from the side panel, executes via /sys.scripts.do)
+  initScriptRunnerBridge();
+
+  // Initialise Feature 5 — Update Set Dashboard bridge (REST proxy for the
+  // Updates tab in the side panel)
+  initUpdateSetBridge();
+
+  // Initialise Feature 6 — Smart Navigation tracker (emits visits to the
+  // background SW which persists per-instance history)
+  const refreshNavTracker = initNavigationTracker(context);
+
+  // Feed recent + favorite records into the command bar as nav commands
+  const refreshNavCmdBar = initNavCommandBarLink(context);
+
+  // Initialise Feature 7 — UI Builder Companion bridge (handles UIB_*
+  // messages from the side panel; only does work when on a UIB page)
+  initUibBridge();
+
+  // Initialise Feature 8 — Flow Designer Inspector bridge (REST proxy for
+  // flow info, executions, steps, and the test launcher)
+  initFlowInspectorBridge();
+
+  // Initialise Feature 9 — Script Quick Actions (right-click menu on
+  // script editors with Copy / Open in Runner / Generate template / etc.)
+  const scriptActions = initScriptActions(context);
+
+  // Initialise Feature 10 — What's Changed Indicator (badge + per-field
+  // revert panel on record forms)
+  const changeIndicator = initChangeIndicator(context);
+
   // SPA navigation: ServiceNow heavily uses pushState
   let lastUrl = window.location.href;
   const observer = new MutationObserver(() => {
@@ -116,6 +155,10 @@ async function init(): Promise<void> {
       void refreshIdentity(updated);
       refreshCommandBar(updated);
       refreshFieldIntel(updated);
+      refreshNavTracker(updated);
+      refreshNavCmdBar(updated);
+      scriptActions.setContext(updated);
+      changeIndicator.setContext(updated);
     }
   });
   observer.observe(document.documentElement, { childList: true, subtree: true });
