@@ -1,0 +1,16 @@
+{
+  "name": "x_nowfg_instance_registry",
+  "label": "NowForge Instance Registry",
+  "extends": "sys_metadata",
+  "scope": "x_nowfg_nowforge",
+  "fields": [
+    { "name": "name",            "label": "Name",          "type": "string",  "max_length": 100, "mandatory": true, "display": true },
+    { "name": "url",             "label": "URL",           "type": "url",     "mandatory": true },
+    { "name": "environment",     "label": "Environment",   "type": "choice",  "choices": ["dev", "test", "staging", "prod", "pdi"] },
+    { "name": "version",         "label": "SN version",    "type": "string",  "max_length": 20 },
+    { "name": "last_clone_date", "label": "Last clone",    "type": "glide_date_time" },
+    { "name": "notes",           "label": "Notes",         "type": "string",  "max_length": 1000 },
+    { "name": "health_score",    "label": "Health",        "type": "integer" },
+    { "name": "last_scan_date",  "label": "Last scan",     "type": "glide_date_time" }
+  ]
+}

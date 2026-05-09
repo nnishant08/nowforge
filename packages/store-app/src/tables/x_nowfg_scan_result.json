@@ -1,0 +1,17 @@
+{
+  "name": "x_nowfg_scan_result",
+  "label": "NowForge Scan Result",
+  "extends": "sys_metadata",
+  "scope": "x_nowfg_nowforge",
+  "fields": [
+    { "name": "scan",          "label": "Scan",          "type": "reference", "reference": "x_nowfg_quality_scan", "mandatory": true },
+    { "name": "rule",          "label": "Rule",          "type": "reference", "reference": "x_nowfg_quality_rule" },
+    { "name": "target_table",  "label": "Target table",  "type": "string", "max_length": 80 },
+    { "name": "target_record", "label": "Target sys_id", "type": "string", "max_length": 32 },
+    { "name": "target_name",   "label": "Target name",   "type": "string", "max_length": 200, "display": true },
+    { "name": "line_number",   "label": "Line",          "type": "integer" },
+    { "name": "message",       "label": "Message",       "type": "string", "max_length": 500 },
+    { "name": "severity",      "label": "Severity",      "type": "choice", "choices": ["error", "warning", "info"] },
+    { "name": "auto_fixable",  "label": "Auto-fixable",  "type": "boolean", "default": "false" }
+  ]
+}

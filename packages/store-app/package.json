@@ -1,0 +1,9 @@
+{
+  "name": "@nowforge/store-app",
+  "version": "0.1.0",
+  "private": true,
+  "description": "ServiceNow scoped application (x_nowfg_nowforge) for on-instance quality gates, doc generation, and governance.",
+  "scripts": {
+    "build": "echo 'No build step — files are imported into ServiceNow as a scoped app or update set.'"
+  }
+}

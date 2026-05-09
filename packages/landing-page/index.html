@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>NowForge — The complete developer toolkit for ServiceNow</title>
+<meta name="description" content="Command bar, debugger, script runner, AI assistant, and 24 more features. Built by working ServiceNow developers." />
+<link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+
+<header class="nav">
+  <a class="brand" href="/">
+    <span class="brand__mark">NF</span>
+    <span class="brand__name">NowForge</span>
+  </a>
+  <nav class="nav__links">
+    <a href="#features">Features</a>
+    <a href="#pricing">Pricing</a>
+    <a href="/docs">Docs</a>
+    <a href="https://github.com/nnishant08/nowforge">GitHub</a>
+  </nav>
+  <a class="cta" href="https://chrome.google.com/webstore/detail/nowforge">Add to Chrome</a>
+</header>
+
+<section class="hero">
+  <h1>The complete developer toolkit for ServiceNow.</h1>
+  <p class="hero__sub">Command bar, debugger, script runner, AI assistant, instance diff, and 24 more features. Free for individual developers.</p>
+  <div class="hero__ctas">
+    <a class="btn btn--primary" href="https://chrome.google.com/webstore/detail/nowforge">Add to Chrome — free</a>
+    <a class="btn btn--ghost" href="#features">See the features</a>
+  </div>
+  <p class="hero__meta">Compatible with all ServiceNow versions Yokohama and later · 28 features · MIT-licensed core</p>
+</section>
+
+<section id="features" class="features">
+  <h2>Built by working SN developers, for working SN developers.</h2>
+  <div class="grid">
+    <div class="card">
+      <div class="card__icon">⌘K</div>
+      <h3>Command Bar</h3>
+      <p>Spotlight-style overlay. Open any record, table, script, or update set in one keystroke. Frecency-ranked, plugin-extensible.</p>
+    </div>
+    <div class="card">
+      <div class="card__icon">🛠</div>
+      <h3>UI Builder Companion</h3>
+      <p>Component tree, property inspector, live state viewer, event log. The debugger UIB shipped without.</p>
+    </div>
+    <div class="card">
+      <div class="card__icon">▶</div>
+      <h3>Script Runner</h3>
+      <p>Full editor in the side panel with SN-aware autocomplete and hover docs. Run background scripts without leaving your tab.</p>
+    </div>
+    <div class="card">
+      <div class="card__icon">🪄</div>
+      <h3>Flow Designer Inspector</h3>
+      <p>Execution history, step-by-step inspector with inputs/outputs, test launcher.</p>
+    </div>
+    <div class="card">
+      <div class="card__icon">🤖</div>
+      <h3>AI Assistant</h3>
+      <p>BYOK (Anthropic / OpenAI). Explain, refactor, generate, ATF-test, document — all with a ServiceNow-expert system prompt.</p>
+    </div>
+    <div class="card">
+      <div class="card__icon">⇄</div>
+      <h3>Instance Diff</h3>
+      <p>Compare two instances side-by-side. Three-tab results, line diff, CSV export.</p>
+    </div>
+  </div>
+  <a class="features__more" href="/docs/features">See all 28 features →</a>
+</section>
+
+<section id="pricing" class="pricing">
+  <h2>Pricing</h2>
+  <div class="tiers">
+    <div class="tier">
+      <h3>Community</h3>
+      <p class="tier__price">Free</p>
+      <ul>
+        <li>Features 1–10 (browser extension)</li>
+        <li>Unlimited instances</li>
+        <li>Plugin Marketplace</li>
+        <li>Community support</li>
+      </ul>
+      <a class="btn btn--ghost" href="https://chrome.google.com/webstore/detail/nowforge">Get the extension</a>
+    </div>
+    <div class="tier tier--featured">
+      <div class="tier__badge">Most popular</div>
+      <h3>Pro</h3>
+      <p class="tier__price">$8<span>/month</span></p>
+      <ul>
+        <li>Everything in Community</li>
+        <li>VS Code extension + bidirectional script sync</li>
+        <li>AI Assistant (BYOK)</li>
+        <li>Instance Diff Tool</li>
+        <li>Code Quality Scanner with A-F grading</li>
+        <li>MCP Server (Claude Desktop, Cursor, etc.)</li>
+      </ul>
+      <a class="btn btn--primary" href="/upgrade">Upgrade to Pro</a>
+    </div>
+    <div class="tier">
+      <h3>Team</h3>
+      <p class="tier__price">$15<span>/seat/month</span></p>
+      <ul>
+        <li>Everything in Pro</li>
+        <li>Shared snippets, commands, bookmarks</li>
+        <li>Code review threads</li>
+        <li>Activity feed</li>
+        <li>Shared deployment pipelines</li>
+      </ul>
+      <a class="btn btn--ghost" href="/upgrade">Start a team</a>
+    </div>
+    <div class="tier">
+      <h3>Enterprise</h3>
+      <p class="tier__price">Contact us</p>
+      <ul>
+        <li>Everything in Team</li>
+        <li>On-instance scoped app</li>
+        <li>Quality gates on update-set commit</li>
+        <li>Governance audit log + compliance exports</li>
+        <li>Cross-instance health dashboard</li>
+        <li>SSO + dedicated support</li>
+      </ul>
+      <a class="btn btn--ghost" href="mailto:enterprise@nowforge.dev">Talk to sales</a>
+    </div>
+  </div>
+</section>
+
+<section class="faq">
+  <h2>FAQ</h2>
+  <details>
+    <summary>Does NowForge access my ServiceNow data?</summary>
+    <p>The browser extension makes REST calls to your instance using your active browser session. None of that data is sent to NowForge servers. The AI assistant (Pro) sends your script directly to Anthropic or OpenAI using your own API key.</p>
+  </details>
+  <details>
+    <summary>Will it work with my old PDI?</summary>
+    <p>Yes for everything except the on-instance Enterprise app, which requires Yokohama or later. The browser extension works on all SN versions.</p>
+  </details>
+  <details>
+    <summary>Can I write my own commands or rules?</summary>
+    <p>Yes — the Plugin Marketplace lets you publish custom commands, quality rules, snippets, AI prompts, pipeline templates, and Learning Mode tips. Plugins are JSON, easy to author, free to share.</p>
+  </details>
+  <details>
+    <summary>Is the source available?</summary>
+    <p>The core library, browser extension, VS Code extension, ESLint plugin, and MCP server are MIT-licensed and on GitHub. The cloud sync service is hosted by us.</p>
+  </details>
+</section>
+
+<footer class="foot">
+  <p>NowForge is independent and not affiliated with ServiceNow, Inc.</p>
+  <p>
+    <a href="/privacy">Privacy</a> ·
+    <a href="/terms">Terms</a> ·
+    <a href="https://github.com/nnishant08/nowforge">GitHub</a> ·
+    <a href="https://discord.gg/nowforge">Discord</a>
+  </p>
+</footer>
+
+</body>
+</html>

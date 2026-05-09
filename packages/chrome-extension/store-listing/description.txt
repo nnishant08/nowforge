@@ -1,0 +1,49 @@
+NowForge is the developer toolkit ServiceNow should have shipped in the box.
+
+Built by working SN developers, for working SN developers. Twenty-eight features that compress your day from "fight the platform" to "ship the work."
+
+▸ INSTANCE IDENTITY — color-coded favicon, floating environment tag, [DEV]/[PROD] tab title prefix. Never push to the wrong instance again.
+
+▸ COMMAND BAR (⌘K) — open any record, table, script, update set, or saved navigation in one keystroke. Frecency-ranked. Plugin-extensible.
+
+▸ FIELD INTELLIGENCE — right-click any field label to copy field name, dot-walk path, jump to dictionary entry, or filter the list. Optional hover tooltips.
+
+▸ BACKGROUND SCRIPT RUNNER — full editor in the side panel with SN-aware autocomplete, hover docs, history, snippets, JSON/Table output formatting. Run scripts without leaving your tab.
+
+▸ UPDATE SET DASHBOARD — current-set card, in-progress quick switch, grouped contents, create-and-switch in one click. Live 30s refresh.
+
+▸ SMART NAVIGATION — frecency-ranked recent records (per instance), favorites that sync via Chrome storage, quick-jump by record number (INC0010001) or table.
+
+▸ UI BUILDER COMPANION — component tree, property inspector, client-state viewer, DOM event log. The debugger UIB shipped without.
+
+▸ FLOW DESIGNER INSPECTOR — flow info, paginated execution history, expandable step inspector, test launcher.
+
+▸ SCRIPT QUICK ACTIONS — right-click any Monaco/CodeMirror script field for Copy / Open in Runner / Generate GlideRecord template / Show all scripts on table.
+
+▸ WHAT'S CHANGED INDICATOR — yellow badge on forms with modified fields, click for diff with per-field revert.
+
+PRO ($8/mo) ADDS:
+▸ VS Code extension — bidirectional script sync, push-on-save with conflict detection
+▸ AI Assistant (BYOK) — Explain / Refactor / Generate / ATF tests / GlideQuery conversion
+▸ Instance Diff Tool — compare two instances side-by-side
+▸ Code Quality Scanner — A-F grading with 8+ ServiceNow-specific rules
+▸ MCP Server — connect Claude Desktop / Cursor / Windsurf to your instance
+
+TEAM ($15/mo/seat) ADDS:
+▸ Shared snippets, custom commands, and bookmarks via Supabase
+▸ Code review threads on any script
+▸ Activity feed across the whole team
+▸ Shared deployment pipelines
+
+ENTERPRISE — on-instance scoped app for quality gates, governance audit, cross-instance health, and compliance exports.
+
+Built for: ServiceNow developers, admins, technical consultants, and platform architects.
+Compatible with: All ServiceNow versions Yokohama and later. Works in Classic UI, Workspace, Service Portal, UI Builder, and Flow Designer.
+
+Privacy: NowForge runs locally. Your scripts and instance data never touch our servers — except AI features (Pro+, BYOK) which talk directly to your chosen provider, and Team Sync (Team+) which uses Supabase with row-level security.
+
+Links:
+• Website: https://nowforge.dev
+• Docs: https://nowforge.dev/docs
+• Discord: https://discord.gg/nowforge
+• GitHub: https://github.com/nnishant08/nowforge

@@ -6,7 +6,7 @@
     "dev": "pnpm --filter chrome-extension dev",
     "build": "pnpm --filter core build && pnpm --filter chrome-extension build && pnpm --filter @nowforge/vscode-extension build",
     "build:vscode": "pnpm --filter core build && pnpm --filter @nowforge/vscode-extension build",
-    "lint": "eslint packages/*/src --ext .ts,.tsx",
+    "lint": "eslint --ext .ts,.tsx packages/chrome-extension/src packages/core/src packages/types/src packages/vscode-extension/src packages/eslint-plugin-nowforge/src packages/cloud/src packages/mcp-server/src",
     "typecheck": "pnpm -r typecheck",
     "package": "pnpm build && node scripts/package.mjs"
   },

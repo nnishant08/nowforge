@@ -1,0 +1,21 @@
+{
+  "name": "x_nowfg_quality_scan",
+  "label": "NowForge Quality Scan",
+  "extends": "sys_metadata",
+  "scope": "x_nowfg_nowforge",
+  "fields": [
+    { "name": "scan_type",     "label": "Type",          "type": "choice",   "choices": ["manual", "scheduled", "commit-gate", "pipeline"] },
+    { "name": "scope",         "label": "Scope",         "type": "reference", "reference": "sys_scope" },
+    { "name": "update_set",    "label": "Update set",    "type": "reference", "reference": "sys_update_set" },
+    { "name": "status",        "label": "Status",        "type": "choice",   "choices": ["running", "completed", "failed"] },
+    { "name": "total_issues",  "label": "Total issues",  "type": "integer" },
+    { "name": "critical_count","label": "Critical",      "type": "integer" },
+    { "name": "warning_count", "label": "Warnings",      "type": "integer" },
+    { "name": "info_count",    "label": "Info",          "type": "integer" },
+    { "name": "score",         "label": "Score",         "type": "integer" },
+    { "name": "grade",         "label": "Grade",         "type": "choice",   "choices": ["A", "B", "C", "D", "F"] },
+    { "name": "started_at",    "label": "Started",       "type": "glide_date_time" },
+    { "name": "completed_at",  "label": "Completed",     "type": "glide_date_time" },
+    { "name": "triggered_by",  "label": "Triggered by",  "type": "reference", "reference": "sys_user" }
+  ]
+}

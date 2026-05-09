@@ -28,6 +28,7 @@ import { initUibBridge } from './features/uibCompanion/uibBridge.js';
 import { initFlowInspectorBridge } from './features/flowInspectorBridge.js';
 import { initScriptActions } from './features/scriptActions/index.js';
 import { initChangeIndicator } from './features/changeIndicator/index.js';
+import { initPerformanceCollector } from './features/profiler/performanceCollector.js';
 
 // ── Page type detection ──────────────────────────────────────────────────────
 
@@ -142,6 +143,9 @@ async function init(): Promise<void> {
   // Initialise Feature 10 — What's Changed Indicator (badge + per-field
   // revert panel on record forms)
   const changeIndicator = initChangeIndicator(context);
+
+  // Initialise Feature 20 — Performance Collector (Performance API → storage)
+  initPerformanceCollector();
 
   // SPA navigation: ServiceNow heavily uses pushState
   let lastUrl = window.location.href;

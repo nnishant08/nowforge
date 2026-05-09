@@ -1,0 +1,13 @@
+{
+  "name": "x_nowfg_doc_config",
+  "label": "NowForge Doc Config",
+  "extends": "sys_metadata",
+  "scope": "x_nowfg_nowforge",
+  "fields": [
+    { "name": "scope",          "label": "Scope",       "type": "reference", "reference": "sys_scope", "mandatory": true },
+    { "name": "doc_types",      "label": "Doc types",   "type": "string", "max_length": 200, "default": "business_rule,client_script,script_include,table_schema,rest_api" },
+    { "name": "auto_regenerate","label": "Auto regen",  "type": "boolean", "default": "true" },
+    { "name": "schedule",       "label": "Schedule",    "type": "string", "max_length": 50, "default": "daily" },
+    { "name": "last_run",       "label": "Last run",    "type": "glide_date_time" }
+  ]
+}

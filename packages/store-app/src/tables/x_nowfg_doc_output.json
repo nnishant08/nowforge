@@ -1,0 +1,16 @@
+{
+  "name": "x_nowfg_doc_output",
+  "label": "NowForge Documentation",
+  "extends": "sys_metadata",
+  "scope": "x_nowfg_nowforge",
+  "fields": [
+    { "name": "doc_type",      "label": "Type",          "type": "choice", "choices": ["business_rule", "client_script", "script_include", "flow", "integration", "table_schema", "rest_api"] },
+    { "name": "target_table",  "label": "Target table",  "type": "string", "max_length": 80 },
+    { "name": "target_record", "label": "Target sys_id", "type": "string", "max_length": 32 },
+    { "name": "target_name",   "label": "Target name",   "type": "string", "max_length": 200, "display": true },
+    { "name": "content",       "label": "Markdown",      "type": "html" },
+    { "name": "scope",         "label": "Scope",         "type": "reference", "reference": "sys_scope" },
+    { "name": "generated_at",  "label": "Generated",     "type": "glide_date_time" },
+    { "name": "version",       "label": "Version",       "type": "integer", "default": "1" }
+  ]
+}

@@ -1,0 +1,100 @@
+<!--
+UI Page: x_nowfg_quality_dashboard
+Application: NowForge (x_nowfg_nowforge)
+Direct: false
+Category: General
+
+Renders the quality dashboard. Calls the dashboard REST endpoint via fetch
+to populate. (We avoid GlideAjax here for simplicity; the URL is
+/api/x_nowfg_nowforge/v1/dashboard relative to the instance.)
+-->
+<?xml version="1.0" encoding="utf-8" ?>
+<j:jelly trim="false" xmlns:j="jelly:core" xmlns:g="glide" xmlns:j2="null" xmlns:g2="null">
+  <style>
+    .nf-q { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; max-width: 1100px; margin: 24px auto; padding: 0 16px; }
+    .nf-q h1 { margin: 0 0 16px; }
+    .nf-q__hero { display: flex; align-items: center; gap: 24px; padding: 16px; background: #f8fafc; border-radius: 8px; margin-bottom: 24px; }
+    .nf-q__grade { width: 64px; height: 64px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+                  font-size: 28px; font-weight: 700; color: #fff; }
+    .nf-q__grade--A { background: #22c55e; } .nf-q__grade--B { background: #3b82f6; }
+    .nf-q__grade--C { background: #eab308; } .nf-q__grade--D { background: #f97316; }
+    .nf-q__grade--F { background: #ef4444; }
+    .nf-q__meta { font-size: 14px; color: #475569; }
+    .nf-q__cards { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .nf-q__card { background: #fff; border: 1px solid #e2e8f0; border-radius: 8px; padding: 16px; }
+    .nf-q__card h3 { margin: 0 0 12px; font-size: 14px; color: #334155; }
+    .nf-q__row { display: flex; justify-content: space-between; padding: 6px 0; border-bottom: 1px solid #f1f5f9; font-size: 13px; }
+    .nf-q__row:last-child { border-bottom: none; }
+    .nf-q__btn { padding: 8px 16px; background: #2563eb; color: #fff; border: none; border-radius: 5px; font-size: 13px; cursor: pointer; }
+  </style>
+
+  <div class="nf-q">
+    <h1>NowForge — Quality Dashboard</h1>
+
+    <div class="nf-q__hero">
+      <div id="nf-q-grade" class="nf-q__grade">…</div>
+      <div>
+        <div id="nf-q-score" style="font-size: 22px; font-weight: 600;">Loading…</div>
+        <div id="nf-q-meta" class="nf-q__meta">Score is computed across all active scripts in the connected scope.</div>
+      </div>
+      <button class="nf-q__btn" onclick="nfRunScan()" style="margin-left: auto;">Run Scan Now</button>
+    </div>
+
+    <div class="nf-q__cards">
+      <div class="nf-q__card">
+        <h3>Recent scans</h3>
+        <div id="nf-q-recent">…</div>
+      </div>
+      <div class="nf-q__card">
+        <h3>Issues by category</h3>
+        <div id="nf-q-cats">…</div>
+      </div>
+      <div class="nf-q__card" style="grid-column: span 2;">
+        <h3>Top noisy scripts (latest scan)</h3>
+        <div id="nf-q-top">…</div>
+      </div>
+    </div>
+  </div>
+
+  <script><![CDATA[
+    function nfFetch(url, opts) {
+      return fetch(url, Object.assign({ credentials: 'include', headers: { Accept: 'application/json' } }, opts || {}))
+        .then(function (r) { return r.json(); });
+    }
+
+    function load() {
+      nfFetch('/api/x_nowfg_nowforge/v1/dashboard').then(function (json) {
+        var d = (json && json.result) || {};
+        if (d.latestGrade) {
+          var g = document.getElementById('nf-q-grade');
+          g.className = 'nf-q__grade nf-q__grade--' + d.latestGrade;
+          g.textContent = d.latestGrade;
+        }
+        document.getElementById('nf-q-score').textContent = d.latestScore != null ? d.latestScore + ' / 100' : 'No scans yet';
+
+        document.getElementById('nf-q-recent').innerHTML = (d.recentScans || []).map(function (s) {
+          return '<div class="nf-q__row"><span>' + (s.startedAt || '') + '</span>' +
+                 '<span><b>' + s.score + '</b> · ' + s.grade + ' · ' + s.errorCount + 'E ' + s.warningCount + 'W</span></div>';
+        }).join('') || 'No scans yet.';
+
+        document.getElementById('nf-q-cats').innerHTML = Object.keys(d.issuesByCategory || {}).map(function (c) {
+          return '<div class="nf-q__row"><span>' + c + '</span><span>' + d.issuesByCategory[c] + '</span></div>';
+        }).join('') || 'No data.';
+
+        document.getElementById('nf-q-top').innerHTML = (d.topNoisyScripts || []).map(function (t) {
+          return '<div class="nf-q__row"><span>' + (t.name || t.sysId) + ' <small style="color:#64748b">(' + t.table + ')</small></span><span>' + t.count + '</span></div>';
+        }).join('') || 'No issues.';
+      });
+    }
+
+    function nfRunScan() {
+      nfFetch('/api/x_nowfg_nowforge/v1/scan', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify({ scope: '' }) // empty = all
+      }).then(function () { setTimeout(load, 800); });
+    }
+
+    load();
+  ]]></script>
+</j:jelly>
