@@ -1,0 +1,41 @@
+{
+  "scope": "x_nowfg_nowforge",
+  "properties": [
+    {
+      "name": "x_nowfg_nowforge.quality_gate.block_on_errors",
+      "type": "boolean",
+      "default": "true",
+      "description": "Block update set commits when the quality scanner reports any 'error' severity findings."
+    },
+    {
+      "name": "x_nowfg_nowforge.quality_gate.min_score",
+      "type": "integer",
+      "default": "0",
+      "description": "Minimum quality score (0-100) required to commit. 0 disables this gate."
+    },
+    {
+      "name": "x_nowfg_nowforge.docs.auto_regenerate",
+      "type": "boolean",
+      "default": "true",
+      "description": "Automatically regenerate documentation when a tracked record changes."
+    },
+    {
+      "name": "x_nowfg_nowforge.governance.log_all_changes",
+      "type": "boolean",
+      "default": "true",
+      "description": "Append every captured update_xml row to the NowForge governance log."
+    },
+    {
+      "name": "x_nowfg_nowforge.governance.high_risk_tables",
+      "type": "string",
+      "default": "sys_security_acl,sys_script,sys_properties,sys_user_role,sys_user_grmember",
+      "description": "Comma-separated list of tables whose changes are tagged 'high' risk in the governance log."
+    },
+    {
+      "name": "x_nowfg_nowforge.scan.max_records_per_table",
+      "type": "integer",
+      "default": "500",
+      "description": "Limit on records scanned per script table to keep scan time bounded."
+    }
+  ]
+}

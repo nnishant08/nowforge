@@ -1,0 +1,151 @@
+{
+  "name": "@nowforge/vscode-extension",
+  "displayName": "NowForge Sync",
+  "description": "Sync ServiceNow scripts to your local filesystem and edit them in VS Code with full IntelliSense.",
+  "version": "0.1.0",
+  "private": true,
+  "publisher": "nowforge",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": ["Other", "Linters"],
+  "keywords": ["servicenow", "now", "scripts", "sync", "glide"],
+  "main": "./dist/extension.js",
+  "activationEvents": [
+    "onCommand:nowforge.connect",
+    "workspaceContains:.nowforge/**"
+  ],
+  "contributes": {
+    "commands": [
+      { "command": "nowforge.connect",          "title": "NowForge: Connect to Instance" },
+      { "command": "nowforge.disconnect",       "title": "NowForge: Disconnect" },
+      { "command": "nowforge.pullAll",          "title": "NowForge: Pull All Scripts" },
+      { "command": "nowforge.pull",             "title": "NowForge: Pull Current File from Instance" },
+      { "command": "nowforge.push",             "title": "NowForge: Push Current File to Instance" },
+      { "command": "nowforge.switchInstance",   "title": "NowForge: Switch Active Instance" },
+      { "command": "nowforge.switchUpdateSet",  "title": "NowForge: Switch Update Set" },
+      { "command": "nowforge.openInBrowser",    "title": "NowForge: Open Current Record in Browser" },
+      { "command": "nowforge.runScript",        "title": "NowForge: Run Current File as Background Script" },
+      { "command": "nowforge.diff",             "title": "NowForge: Compare with Instance" },
+      { "command": "nowforge.refreshExplorer",  "title": "NowForge: Refresh Explorer", "icon": "$(refresh)" },
+      { "command": "nowforge.ai.configure",     "title": "NowForge AI: Configure API Key" },
+      { "command": "nowforge.ai.explain",       "title": "NowForge AI: Explain" },
+      { "command": "nowforge.ai.refactor",      "title": "NowForge AI: Refactor" },
+      { "command": "nowforge.ai.generate",      "title": "NowForge AI: Generate from description" },
+      { "command": "nowforge.ai.convertToGlideQuery", "title": "NowForge AI: Convert to GlideQuery" },
+      { "command": "nowforge.ai.atfTest",       "title": "NowForge AI: Generate ATF Test" },
+      { "command": "nowforge.ai.document",      "title": "NowForge AI: Document" },
+      { "command": "nowforge.ai.explainError",  "title": "NowForge AI: Explain Error" }
+    ],
+    "menus": {
+      "view/title": [
+        { "command": "nowforge.refreshExplorer", "when": "view == nowforge-explorer", "group": "navigation" },
+        { "command": "nowforge.pullAll",          "when": "view == nowforge-explorer", "group": "navigation" }
+      ],
+      "view/item/context": [
+        { "command": "nowforge.openInBrowser",    "when": "view == nowforge-explorer && viewItem == record", "group": "1_open" },
+        { "command": "nowforge.diff",             "when": "view == nowforge-explorer && viewItem == record", "group": "2_compare" }
+      ],
+      "editor/context": [
+        { "command": "nowforge.push",             "when": "resourceFilename =~ /\\.script\\.js$/", "group": "nowforge@1" },
+        { "command": "nowforge.pull",             "when": "resourceFilename =~ /\\.script\\.js$/", "group": "nowforge@2" },
+        { "command": "nowforge.openInBrowser",    "when": "resourceFilename =~ /\\.script\\.js$/", "group": "nowforge@3" }
+      ]
+    },
+    "viewsContainers": {
+      "activitybar": [
+        { "id": "nowforge", "title": "NowForge", "icon": "$(cloud)" }
+      ]
+    },
+    "views": {
+      "nowforge": [
+        { "id": "nowforge-explorer", "name": "Instance Explorer" }
+      ]
+    },
+    "configuration": {
+      "title": "NowForge",
+      "properties": {
+        "nowforge.instances": {
+          "type": "array",
+          "default": [],
+          "description": "Configured ServiceNow instances. Each entry: { name, url, username }. Passwords are stored separately in VS Code SecretStorage.",
+          "items": {
+            "type": "object",
+            "required": ["name", "url", "username"],
+            "properties": {
+              "name":     { "type": "string", "description": "Display name (e.g. dev12345)" },
+              "url":      { "type": "string", "description": "Instance URL (e.g. https://dev12345.service-now.com)" },
+              "username": { "type": "string", "description": "Login username" }
+            }
+          }
+        },
+        "nowforge.activeInstance": {
+          "type": "string",
+          "default": "",
+          "description": "Currently active instance name (matches an entry in nowforge.instances)."
+        },
+        "nowforge.syncTables": {
+          "type": "array",
+          "items": { "type": "string" },
+          "default": [
+            "sys_script", "sys_script_client", "sys_script_include",
+            "sys_ui_script", "sys_ui_action", "sys_script_fix",
+            "sp_widget", "sys_ws_operation"
+          ],
+          "description": "Table names to include when pulling all scripts."
+        },
+        "nowforge.autoPush": {
+          "type": "boolean",
+          "default": true,
+          "description": "Automatically push files to the instance when you save them."
+        },
+        "nowforge.autoPushDelay": {
+          "type": "number",
+          "default": 2000,
+          "description": "Debounce delay in milliseconds before auto-push fires."
+        },
+        "nowforge.syncFolder": {
+          "type": "string",
+          "default": "nowforge-sync",
+          "description": "Path (relative to workspace) where synced files are written."
+        },
+        "nowforge.fileStructure": {
+          "type": "string",
+          "enum": ["grouped", "flat"],
+          "default": "grouped",
+          "description": "grouped = {scope}/{table-folder}/{name}.script.js, flat = {table}_{name}.script.js"
+        },
+        "nowforge.scopeFilter": {
+          "type": "string",
+          "default": "",
+          "description": "Optional scope filter (e.g. 'global' or 'x_my_app'). Empty = all scopes the user can read."
+        },
+        "nowforge.ai.provider": {
+          "type": "string",
+          "enum": ["anthropic", "openai"],
+          "default": "anthropic",
+          "description": "AI provider for the NowForge AI commands."
+        },
+        "nowforge.ai.model": {
+          "type": "string",
+          "default": "claude-sonnet-4-5-20250929",
+          "description": "Model to use for AI calls. Defaults adjust automatically when you switch provider."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "build": "node esbuild.config.mjs",
+    "dev":   "node esbuild.config.mjs --watch",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@nowforge/core": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "@types/vscode": "^1.85.0",
+    "esbuild": "^0.21.0",
+    "typescript": "^5.4.0"
+  }
+}

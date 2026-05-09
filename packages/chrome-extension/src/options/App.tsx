@@ -9,6 +9,7 @@ import {
   getSettings as getFeature1Settings,
   saveSettings as saveFeature1Settings,
 } from '../shared/settings.js';
+import { AISettingsSection } from './AISettingsSection.js';
 import './App.css';
 
 // ── Existing per-instance config (kept from Phase 1) ────────────────────────
@@ -307,6 +308,9 @@ export default function App() {
             </div>
           )}
         </section>
+
+        {/* ── AI Assistant (BYOK) ── */}
+        <AISettingsSection />
 
         {/* ── Appearance ── */}
         <section className="options__section">

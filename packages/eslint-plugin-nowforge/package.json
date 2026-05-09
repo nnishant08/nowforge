@@ -1,0 +1,22 @@
+{
+  "name": "eslint-plugin-nowforge",
+  "version": "0.1.0",
+  "description": "ESLint rules for ServiceNow developers — catches common GlideRecord, GlideAjax, and platform mistakes.",
+  "keywords": ["eslint", "eslintplugin", "servicenow", "glide", "now"],
+  "license": "MIT",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": ["dist", "README.md"],
+  "scripts": {
+    "build": "tsc",
+    "typecheck": "tsc --noEmit"
+  },
+  "peerDependencies": {
+    "eslint": ">=8.0.0"
+  },
+  "devDependencies": {
+    "@types/eslint": "^8.56.0",
+    "@types/estree": "^1.0.0",
+    "typescript": "^5.4.0"
+  }
+}

@@ -1,5 +1,6 @@
 import type { PageContext } from '../shared/messaging.js';
 import type { ExtensionMessage, GetPageContextResponse } from '../shared/messaging.js';
+import { initNavigationStore } from './navigationStore.js';
 
 // Map of tabId → PageContext
 const tabContextMap = new Map<number, PageContext>();
@@ -155,6 +156,22 @@ chrome.runtime.onMessage.addListener(
       return true; // keep channel open for async sendResponse
     }
 
+    if (message.type === 'OPEN_SIDE_PANEL') {
+      // chrome.sidePanel.open() requires a tabId from the same window. The
+      // user-gesture requirement is normally enforced; sending the message
+      // FROM a contextmenu click in the content script generally satisfies
+      // the gesture chain on Chrome 116+.
+      if (tabId !== undefined) {
+        chrome.sidePanel
+          .open({ tabId })
+          .then(() => sendResponse({ ok: true }))
+          .catch((err: Error) => sendResponse({ ok: false, error: err.message }));
+        return true;
+      }
+      sendResponse({ ok: false, error: 'No tab in sender' });
+      return false;
+    }
+
     return false;
   }
 );
@@ -180,6 +197,9 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo) => {
 chrome.sidePanel
   .setPanelBehavior({ openPanelOnActionClick: false })
   .catch(() => {});
+
+// Smart Navigation — receive NAV_RECORD_VISITED messages and persist history
+initNavigationStore();
 
 // Forward the Cmd/Ctrl+K shortcut declared in manifest.commands to the active
 // tab's content script. The content script also has its own keydown listener

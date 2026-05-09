@@ -38,6 +38,7 @@ export default defineConfig({
         popup: resolve(__dirname, 'src/popup/index.html'),
         sidepanel: resolve(__dirname, 'src/sidepanel/index.html'),
         options: resolve(__dirname, 'src/options/index.html'),
+        diff: resolve(__dirname, 'src/diff/index.html'),
         // background is a service worker with `type: module` in the manifest —
         // it can use ES module imports, so it stays in the Vite build.
         // content script is built separately by tsup (see tsup.content.config.ts)

@@ -1,0 +1,10 @@
+{
+  "name": "@nowforge/landing-page",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Static landing page for nowforge.dev. Deploy with any static host (Vercel, Netlify, GitHub Pages, Cloudflare Pages).",
+  "scripts": {
+    "preview": "python3 -m http.server 4000",
+    "build": "echo 'Static — no build step. Upload the directory.'"
+  }
+}

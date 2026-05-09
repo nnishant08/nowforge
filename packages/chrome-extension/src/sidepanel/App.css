@@ -81,6 +81,14 @@
   overflow-y: auto;
   padding: var(--space-4);
 }
+/* Script Runner takes the whole panel — no padding so the editor fills */
+.sidepanel__body--flush {
+  padding: 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+.sidepanel__body--flush > * { flex: 1; min-height: 0; }
 
 /* Coming soon placeholder */
 .coming-soon {

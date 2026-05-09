@@ -1,0 +1,86 @@
+.iw-root { display: flex; flex-direction: column; gap: var(--space-3); padding: var(--space-3); height: 100%; overflow-y: auto; }
+.iw-card { display: flex; flex-direction: column; gap: var(--space-2); padding: var(--space-3); background: var(--color-bg-secondary); border: 1px solid var(--color-border-subtle); border-radius: var(--radius-md); }
+.iw-card__title { margin: 0 0 4px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--color-text-tertiary); }
+
+.iw-row { display: flex; gap: 6px; align-items: center; }
+
+.iw-method, .iw-url, .iw-input, .iw-textarea {
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 4px;
+  font: inherit;
+  font-size: 12px;
+  color: var(--color-text-primary);
+  padding: 5px 8px;
+}
+.iw-method { width: 80px; }
+.iw-url { flex: 1; font-family: 'Fira Code', monospace; }
+.iw-input { flex: 1; }
+.iw-textarea { width: 100%; font-family: 'Fira Code', monospace; font-size: 11px; }
+
+.iw-btn {
+  height: 28px; padding: 0 12px; border: 1px solid transparent; border-radius: 4px;
+  font: inherit; font-size: 12px; font-weight: 600; cursor: pointer;
+}
+.iw-btn--primary { background: var(--color-accent); color: #fff; }
+.iw-btn--primary:hover { background: var(--color-accent-hover); }
+.iw-btn--primary:disabled { opacity: 0.6; cursor: not-allowed; }
+.iw-btn--ghost { background: transparent; color: var(--color-text-tertiary); border: 1px solid var(--color-border-subtle); }
+
+.iw-headers, .iw-body { display: flex; flex-direction: column; gap: 4px; }
+.iw-headers summary, .iw-body summary { cursor: pointer; font-size: 11px; color: var(--color-text-secondary); font-weight: 600; }
+
+.iw-error {
+  padding: 8px 10px; background: var(--color-error-subtle);
+  border-left: 3px solid var(--color-error); border-radius: 3px;
+  color: var(--color-error); font-size: 11px;
+}
+
+.iw-resp-bar { display: flex; align-items: center; gap: 10px; font-size: 11px; color: var(--color-text-tertiary); }
+.iw-tab {
+  margin-left: auto; padding: 3px 8px; background: transparent;
+  border: none; cursor: pointer; font: inherit; font-size: 11px;
+  color: var(--color-text-tertiary); border-radius: 3px;
+}
+.iw-tab--active { background: var(--color-bg-tertiary); color: var(--color-text-primary); font-weight: 600; }
+
+.iw-status {
+  display: inline-flex; align-items: center; padding: 2px 8px; border-radius: 100px;
+  font-size: 10px; font-weight: 700;
+}
+.iw-status--2 { background: rgba(34,197,94,0.15); color: #166534; }
+.iw-status--3 { background: rgba(59,130,246,0.15); color: #1e40af; }
+.iw-status--4 { background: rgba(234,179,8,0.18); color: #92400e; }
+.iw-status--5 { background: rgba(239,68,68,0.15); color: #991b1b; }
+
+.iw-resp {
+  margin: 0; padding: 8px;
+  background: var(--color-bg); border: 1px solid var(--color-border-subtle); border-radius: 4px;
+  font-family: 'Fira Code', monospace; font-size: 11px;
+  white-space: pre-wrap; word-break: break-word;
+  max-height: 300px; overflow: auto;
+}
+
+.iw-jsonpath { display: flex; gap: 6px; align-items: center; }
+.iw-jsonpath__val { font-family: 'Fira Code', monospace; font-size: 11px; padding: 4px 8px; background: var(--color-bg-tertiary); border-radius: 3px; word-break: break-all; }
+
+.iw-history { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 4px; }
+.iw-history button {
+  display: flex; align-items: center; gap: 8px;
+  width: 100%; padding: 6px 8px; background: var(--color-bg);
+  border: 1px solid var(--color-border-subtle); border-radius: 4px;
+  font: inherit; font-size: 11px; cursor: pointer; color: var(--color-text-primary);
+  text-align: left;
+}
+.iw-history button:hover { border-color: var(--color-accent); }
+.iw-history__url { flex: 1; font-family: 'Fira Code', monospace; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+.iw-method-pill {
+  display: inline-flex; padding: 1px 6px; border-radius: 100px;
+  font-size: 9px; font-weight: 700; letter-spacing: 0.04em;
+}
+.iw-method-pill--GET    { background: rgba(34,197,94,0.15); color: #166534; }
+.iw-method-pill--POST   { background: rgba(59,130,246,0.18); color: #1e40af; }
+.iw-method-pill--PUT    { background: rgba(168,85,247,0.18); color: #6b21a8; }
+.iw-method-pill--PATCH  { background: rgba(234,179,8,0.20); color: #92400e; }
+.iw-method-pill--DELETE { background: rgba(239,68,68,0.15); color: #991b1b; }

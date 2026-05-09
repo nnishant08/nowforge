@@ -1,0 +1,426 @@
+/* UI Builder Companion — uses the side panel's theme.css custom props. */
+
+.uib-root {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow-y: auto;
+  background: var(--color-bg);
+}
+
+.uib-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 36px 20px;
+  height: 100%;
+}
+.uib-empty__icon { font-size: 32px; margin-bottom: 10px; opacity: 0.7; }
+.uib-empty__title {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  margin: 0 0 6px;
+}
+.uib-empty__sub {
+  font-size: 11px;
+  color: var(--color-text-tertiary);
+  line-height: 1.5;
+  margin: 0 0 16px;
+  max-width: 280px;
+}
+.uib-empty__btn {
+  height: 28px;
+  padding: 0 14px;
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border);
+  color: var(--color-text-primary);
+  border-radius: 5px;
+  font: inherit;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+}
+.uib-empty__btn:hover { background: var(--color-bg-tertiary); }
+
+/* ── Header ───────────────────────────────────────────────────────────── */
+.uib-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--color-border-subtle);
+  background: var(--color-bg-secondary);
+  flex-shrink: 0;
+}
+.uib-header__icon { font-size: 14px; flex-shrink: 0; }
+.uib-header__page {
+  flex: 1;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.uib-header__btn {
+  width: 24px; height: 24px;
+  background: transparent;
+  border: none;
+  color: var(--color-text-tertiary);
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 13px;
+}
+.uib-header__btn:hover { background: var(--color-bg-tertiary); color: var(--color-text-primary); }
+
+/* ── Collapsible section ─────────────────────────────────────────────── */
+.uib-section {
+  border-bottom: 1px solid var(--color-border-subtle);
+  display: flex;
+  flex-direction: column;
+}
+.uib-section__head {
+  display: flex;
+  align-items: center;
+  background: var(--color-bg);
+  flex-shrink: 0;
+}
+.uib-section__toggle {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 12px;
+  background: transparent;
+  border: none;
+  color: var(--color-text-secondary);
+  font: inherit;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  cursor: pointer;
+  text-align: left;
+}
+.uib-section__toggle:hover { background: var(--color-bg-secondary); }
+.uib-section__chev {
+  font-size: 10px;
+  color: var(--color-text-tertiary);
+  width: 10px;
+}
+.uib-section__right { padding-right: 8px; }
+.uib-section__body {
+  background: var(--color-bg);
+  border-top: 1px solid var(--color-border-subtle);
+  max-height: 360px;
+  overflow: auto;
+}
+
+/* ── Tree ─────────────────────────────────────────────────────────────── */
+.uib-tree, .uib-tree__children {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.uib-tree__empty {
+  padding: 16px 12px;
+  font-size: 11px;
+  color: var(--color-text-tertiary);
+  font-style: italic;
+}
+.uib-tree__row {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 8px 4px 0;
+  cursor: pointer;
+  font-size: 11px;
+  color: var(--color-text-primary);
+}
+.uib-tree__row:hover { background: var(--color-bg-secondary); }
+.uib-tree__row--selected {
+  background: var(--color-accent-subtle);
+}
+.uib-tree__toggle {
+  background: transparent;
+  border: none;
+  color: var(--color-text-tertiary);
+  font-size: 9px;
+  width: 14px;
+  height: 14px;
+  cursor: pointer;
+  padding: 0;
+  flex-shrink: 0;
+}
+.uib-tree__bullet {
+  display: inline-block;
+  width: 14px;
+  font-size: 11px;
+  color: var(--color-text-placeholder);
+  text-align: center;
+  flex-shrink: 0;
+}
+.uib-tree__main {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.uib-tree__name { font-weight: 500; }
+.uib-tree__tag {
+  font-family: 'Fira Code', monospace;
+  font-size: 10px;
+  color: var(--color-text-tertiary);
+}
+.uib-tree__preview {
+  color: var(--color-text-tertiary);
+  font-size: 11px;
+  font-style: italic;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.uib-tree__shadow { font-size: 10px; opacity: 0.6; }
+
+/* ── Property Inspector ─────────────────────────────────────────────── */
+.uib-pi {
+  padding: 12px;
+}
+.uib-pi__empty,
+.uib-pi__empty-row {
+  padding: 12px;
+  font-size: 11px;
+  color: var(--color-text-tertiary);
+  font-style: italic;
+}
+.uib-pi__head {
+  margin-bottom: 8px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--color-border-subtle);
+}
+.uib-pi__tag {
+  font-family: 'Fira Code', monospace;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-text-primary);
+}
+.uib-pi__desc {
+  margin-top: 2px;
+  font-size: 11px;
+  color: var(--color-text-secondary);
+}
+.uib-pi__version {
+  margin-top: 2px;
+  font-size: 10px;
+  color: var(--color-text-tertiary);
+}
+.uib-pi__section { margin-top: 12px; }
+.uib-pi__section-title {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--color-text-tertiary);
+  margin-bottom: 4px;
+}
+.uib-pi__list {
+  list-style: none;
+  margin: 0; padding: 0;
+  display: flex; flex-direction: column;
+  gap: 2px;
+}
+.uib-pi__row {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  font-size: 11px;
+  padding: 3px 0;
+  border-bottom: 1px solid var(--color-border-subtle);
+}
+.uib-pi__row:last-child { border-bottom: none; }
+.uib-pi__k {
+  font-family: 'Fira Code', monospace;
+  font-size: 11px;
+  color: var(--color-text-secondary);
+  min-width: 80px;
+  flex-shrink: 0;
+}
+.uib-pi__arrow { color: var(--color-text-tertiary); font-size: 11px; }
+.uib-pi__v {
+  font-family: 'Fira Code', monospace;
+  font-size: 11px;
+  color: var(--color-text-primary);
+  word-break: break-word;
+  flex: 1;
+}
+.uib-pi__v--binding { color: #8b5cf6; }
+
+/* ── Client State ─────────────────────────────────────────────────────── */
+.uib-state {
+  padding: 8px 12px;
+  transition: background 0.6s ease-out;
+}
+.uib-state--flash { background: rgba(234, 179, 8, 0.08); }
+.uib-state__toolbar {
+  display: flex; gap: 6px;
+  align-items: center;
+  margin-bottom: 8px;
+}
+.uib-state__filter {
+  flex: 1;
+  height: 26px;
+  padding: 0 10px;
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 4px;
+  font: inherit;
+  font-size: 11px;
+  color: var(--color-text-primary);
+  outline: none;
+}
+.uib-state__filter:focus { border-color: var(--color-accent); }
+.uib-state__auto {
+  display: flex; align-items: center; gap: 4px;
+  font-size: 11px;
+  color: var(--color-text-secondary);
+}
+.uib-state__btn {
+  height: 26px;
+  padding: 0 10px;
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: 4px;
+  font: inherit;
+  font-size: 11px;
+  cursor: pointer;
+  color: var(--color-text-primary);
+}
+.uib-state__btn:hover { background: var(--color-bg-tertiary); }
+.uib-state__btn:disabled { opacity: 0.5; cursor: not-allowed; }
+.uib-state__body {
+  margin: 0;
+  font-family: 'Fira Code', monospace;
+  font-size: 11px;
+  background: var(--color-bg-secondary);
+  padding: 8px;
+  border-radius: 4px;
+  border: 1px solid var(--color-border-subtle);
+  max-height: 240px;
+  overflow: auto;
+  color: var(--color-text-primary);
+}
+.uib-state__empty {
+  font-size: 11px;
+  color: var(--color-text-tertiary);
+  font-style: italic;
+  padding: 8px 0;
+  line-height: 1.5;
+}
+.uib-state__hint { font-style: normal; }
+.uib-state__diff {
+  margin-top: 6px;
+  font-size: 11px;
+  color: var(--color-text-tertiary);
+}
+.uib-state__diff pre {
+  font-family: 'Fira Code', monospace;
+  font-size: 10px;
+  background: var(--color-bg-tertiary);
+  padding: 6px;
+  border-radius: 3px;
+  max-height: 120px;
+  overflow: auto;
+}
+
+/* ── Event Log ───────────────────────────────────────────────────────── */
+.uib-events {
+  display: flex;
+  flex-direction: column;
+}
+.uib-events__toolbar {
+  display: flex; gap: 6px;
+  padding: 8px 12px;
+  flex-shrink: 0;
+}
+.uib-events__filter {
+  flex: 1;
+  height: 26px;
+  padding: 0 10px;
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 4px;
+  font: inherit;
+  font-size: 11px;
+  color: var(--color-text-primary);
+  outline: none;
+}
+.uib-events__btn {
+  height: 26px;
+  padding: 0 10px;
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: 4px;
+  font: inherit;
+  font-size: 11px;
+  cursor: pointer;
+  color: var(--color-text-primary);
+}
+.uib-events__btn:hover { background: var(--color-bg-tertiary); }
+.uib-events__list {
+  list-style: none;
+  margin: 0; padding: 0;
+  font-family: 'Fira Code', monospace;
+  font-size: 10px;
+  border-top: 1px solid var(--color-border-subtle);
+}
+.uib-events__row {
+  border-bottom: 1px solid var(--color-border-subtle);
+  border-left: 3px solid transparent;
+}
+.uib-events__row--data   { border-left-color: #3b82f6; }
+.uib-events__row--render { border-left-color: #10b981; }
+.uib-events__row--state  { border-left-color: #eab308; }
+.uib-events__row--user   { border-left-color: #6366f1; }
+.uib-events__row--error  { border-left-color: #ef4444; }
+.uib-events__main {
+  width: 100%;
+  display: flex; align-items: baseline;
+  gap: 8px;
+  padding: 4px 12px;
+  background: transparent;
+  border: none;
+  text-align: left;
+  font: inherit;
+  font-family: 'Fira Code', monospace;
+  font-size: 10px;
+  color: var(--color-text-primary);
+  cursor: pointer;
+}
+.uib-events__main:hover { background: var(--color-bg-secondary); }
+.uib-events__time { color: var(--color-text-tertiary); flex-shrink: 0; }
+.uib-events__type { font-weight: 700; flex-shrink: 0; }
+.uib-events__source { color: var(--color-text-secondary); flex-shrink: 0; }
+.uib-events__detail { color: var(--color-text-tertiary); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.uib-events__expand {
+  margin: 0 12px 6px;
+  padding: 6px 8px;
+  background: var(--color-bg-tertiary);
+  border-radius: 3px;
+  font-size: 10px;
+  max-height: 200px;
+  overflow: auto;
+}
+.uib-events__empty {
+  padding: 16px 12px;
+  font-size: 11px;
+  color: var(--color-text-tertiary);
+  font-style: italic;
+  text-align: center;
+}

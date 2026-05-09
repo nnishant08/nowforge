@@ -1,0 +1,32 @@
+{
+  "primaryCategory": "Developer Tools",
+  "secondaryCategories": ["Productivity"],
+  "tags": [
+    "servicenow",
+    "now platform",
+    "glide",
+    "developer tools",
+    "scripts",
+    "command bar",
+    "code review",
+    "atf",
+    "flow designer",
+    "ui builder",
+    "rest api",
+    "instance management"
+  ],
+  "searchKeywords": [
+    "servicenow developer",
+    "servicenow scripts",
+    "servicenow command bar",
+    "now developer",
+    "glide record",
+    "business rule",
+    "client script",
+    "service portal",
+    "update set",
+    "atf test",
+    "code quality"
+  ],
+  "languages": ["en"]
+}

@@ -1,0 +1,16 @@
+{
+  "name": "x_nowfg_governance_log",
+  "label": "NowForge Governance Log",
+  "extends": "sys_metadata",
+  "scope": "x_nowfg_nowforge",
+  "fields": [
+    { "name": "action",        "label": "Action",        "type": "choice", "choices": ["script_created", "script_modified", "script_deleted", "update_set_committed", "pipeline_promoted", "scan_triggered", "test_run", "property_changed", "acl_changed"] },
+    { "name": "user",          "label": "User",          "type": "reference", "reference": "sys_user" },
+    { "name": "instance_url",  "label": "Instance",      "type": "string", "max_length": 200 },
+    { "name": "target_table",  "label": "Target table",  "type": "string", "max_length": 80 },
+    { "name": "target_record", "label": "Target sys_id", "type": "string", "max_length": 32 },
+    { "name": "target_name",   "label": "Target name",   "type": "string", "max_length": 200, "display": true },
+    { "name": "details",       "label": "Details",       "type": "json" },
+    { "name": "risk_level",    "label": "Risk",          "type": "choice", "choices": ["low", "medium", "high", "critical"] }
+  ]
+}

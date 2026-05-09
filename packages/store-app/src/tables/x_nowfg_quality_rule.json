@@ -1,0 +1,18 @@
+{
+  "name": "x_nowfg_quality_rule",
+  "label": "NowForge Quality Rule",
+  "extends": "sys_metadata",
+  "scope": "x_nowfg_nowforge",
+  "fields": [
+    { "name": "name",              "label": "Name",            "type": "string",   "max_length": 100, "mandatory": true,  "display": true },
+    { "name": "rule_id",           "label": "Rule ID",         "type": "string",   "max_length": 50,  "mandatory": true },
+    { "name": "description",       "label": "Description",     "type": "string",   "max_length": 1000 },
+    { "name": "category",          "label": "Category",        "type": "choice",   "choices": ["performance", "security", "upgradeability", "best-practice"] },
+    { "name": "severity",          "label": "Severity",        "type": "choice",   "choices": ["error", "warning", "info"] },
+    { "name": "active",            "label": "Active",          "type": "boolean",  "default": "true" },
+    { "name": "check_script",      "label": "Check script",    "type": "script" },
+    { "name": "fix_script",        "label": "Fix script",      "type": "script" },
+    { "name": "documentation_url", "label": "Documentation",   "type": "url" },
+    { "name": "custom",            "label": "Custom",          "type": "boolean",  "default": "false" }
+  ]
+}
